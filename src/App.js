@@ -19,10 +19,35 @@ import Welcome from './components/Welcome'
 
 function App() {
   // Set state values
- 
+  const [currentUser, setCurrentUser] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  
   useEffect(() => {
-    
+    let token;
+
+    if (!localStorage.getItem('jwtToken')) {
+      setIsAuthenticated(false);
+      console.log('================> AUTHENTICATED IS FALSE')
+    } else {
+      token = jwt_decode(localStorage.getItem('jwtToken'));
+      setAuthToken(localStorage.getItem('jwtToken'))
+      setCurrentUser(token);
+    }
   }, []);
+
+  const nowCurrentUser = (userData) => {
+    console.log("====> now current user is here");
+    setCurrentUser(userData);
+    setIsAuthenticated(true);
+  }
+
+  const handleLogout = () => {
+    if (localStorage.getItem('jwtToken')) {
+      localStorage.removeItem('jwtToken');
+      setCurrentUser(null);
+      setIsAuthenticated(false);
+    }
+  }
 
   return (
     <div className="App">
