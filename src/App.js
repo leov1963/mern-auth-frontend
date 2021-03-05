@@ -60,7 +60,19 @@ function App() {
   return (
     <div className="App">
       <h1>MERN Authentication</h1>
-      <Signup />
+      <Navbar handleLogout={handleLogout} isAuth={isAuthenticated} />
+      <div className="container mt-5">
+        <Switch>
+          <Route path="/signup" component={Signup} />
+          <Route 
+            path="/login"
+            render={(props) => <Login {...props} nowCurrentUser setIsAuthenticated={setIsAuthenticated} user={currentUser} />}
+          />
+          <PrivateRoute path="/profile" component={Profile} user={CurrentUser} handleLogout={handleLogout} />
+          <Route exact path="/" component={Welcome} />
+        </Switch>
+      </div>
+      <Footer />
     </div>
   );
 }
