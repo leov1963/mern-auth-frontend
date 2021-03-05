@@ -17,6 +17,14 @@ import Navbar from './components/Navbar'
 import Profile from './components/Profile'
 import Welcome from './components/Welcome'
 
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  let token = localStorage.getItem('jwtToken');
+  console.log("====> Hitting a private route");
+  return <Route {...rest} render={(props) => {
+    return token ? <Component {...rest} {...props} /> : <Redirect to="/login" />;
+  }} />
+}
+
 function App() {
   // Set state values
   const [currentUser, setCurrentUser] = useState('');
