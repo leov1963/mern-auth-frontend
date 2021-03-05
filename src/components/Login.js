@@ -20,7 +20,7 @@ const Login = (props) => {
     }
 
     const  handleSubmit = (e) => {
-        e.preventDefault
+        e.preventDefault()
         const userData = { email, password };
 
         axios.post(`${REACT_APP_SERVER_URL}/users/login`, userData)
@@ -36,9 +36,9 @@ const Login = (props) => {
             props.nowCurrentUser(decoded)
         })
         .catch(error => {
-            console.log('Error logging in ====> ',error))
+            console.log('Error logging in ====> ',error);
             alert('Either Email or password is incorrect')
-        }
+        })
     }
 
     props.user ? <Redirect to='/profile' /> : <Redirect to='/login' /> // double check
